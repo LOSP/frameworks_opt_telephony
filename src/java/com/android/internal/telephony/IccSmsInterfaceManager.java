@@ -22,6 +22,7 @@ import android.os.Binder;
 import android.os.RemoteException;
 import android.util.Log;
 
+import com.android.internal.telephony.uicc.IccConstants;
 import com.android.internal.util.HexDump;
 
 import java.util.ArrayList;
