@@ -211,7 +211,8 @@ public final class RuimRecords extends IccRecords {
             return null;
         }
 
-        if (mMncLength != UNINITIALIZED && mMncLength != UNKNOWN) {
+        return SystemProperties.get("ro.cdma.home.operator.numeric");
+        /*if (mncLength != UNINITIALIZED && mncLength != UNKNOWN) {
             // Length = length of MCC + length of MNC
             // length of mcc = 3 (3GPP2 C.S0005 - Section 2.3)
             return mImsi.substring(0, 3 + mMncLength);
@@ -221,7 +222,7 @@ public final class RuimRecords extends IccRecords {
         // have a valid value in ef[ad]
 
         int mcc = Integer.parseInt(mImsi.substring(0,3));
-        return mImsi.substring(0, 3 + MccTable.smallestDigitsMccForMnc(mcc));
+        return mImsi.substring(0, 3 + MccTable.smallestDigitsMccForMnc(mcc));*/
     }
 
     // Refer to ETSI TS 102.221
