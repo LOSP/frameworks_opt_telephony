@@ -111,7 +111,12 @@ public class DcTracker extends DcTrackerBase {
     /** Watches for changes to the APN db. */
     private ApnChangeObserver mApnObserver;
 
+
     private CdmaSubscriptionSourceManager mCdmaSsm;
+
+    private boolean mIsOmhEnabled =
+            SystemProperties.getBoolean(CdmaDataProfileTracker.PROPERTY_OMH_ENABLED, false);
+
     private CdmaDataProfileTracker mDpt;
 
     //***** Constructor
@@ -156,7 +161,7 @@ public class DcTracker extends DcTrackerBase {
 
         mDataConnectionTracker = this;
 
-        if (p.getPhoneType() == PhoneConstants.PHONE_TYPE_CDMA) {
+        if (mIsOmhEnabled && p.getPhoneType() == PhoneConstants.PHONE_TYPE_CDMA) {
             mDpt = new CdmaDataProfileTracker((CDMAPhone)p);
             mDpt.registerForModemProfileReady(this, DctConstants.EVENT_MODEM_DATA_PROFILE_READY,
                     null);
@@ -1390,7 +1395,7 @@ public class DcTracker extends DcTrackerBase {
         log("onRecordsLoaded");
 
         boolean needModemProfiles = false;
-        if (mPhone.getPhoneType() == PhoneConstants.PHONE_TYPE_CDMA ) {
+        if (mDpt != null) {
             log("OMH: onRecordsLoaded(): calling loadProfiles()");
             /* query for data profiles stored in the modem */
             mDpt.loadProfiles();
@@ -2360,10 +2365,17 @@ public class DcTracker extends DcTrackerBase {
 
         IccRecords newIccRecords = null;
 
-        if (mPhone.getPhoneType() ==  PhoneConstants.PHONE_TYPE_GSM) {
-            newIccRecords = mUiccController.getIccRecords(UiccController.APP_FAM_3GPP);
-        } else if (mPhone.getPhoneType() ==  PhoneConstants.PHONE_TYPE_CDMA) {
-            newIccRecords = mUiccController.getIccRecords(UiccController.APP_FAM_3GPP2);
+        if (mIsOmhEnabled) {
+            if (mPhone.getPhoneType() ==  PhoneConstants.PHONE_TYPE_GSM) {
+                newIccRecords = mUiccController.getIccRecords(UiccController.APP_FAM_3GPP);
+            } else if (mPhone.getPhoneType() ==  PhoneConstants.PHONE_TYPE_CDMA) {
+                newIccRecords = mUiccController.getIccRecords(UiccController.APP_FAM_3GPP2);
+            }
+        } else {
+            newIccRecords = getUiccCardApplication();
+            if (newIccRecords == null) {
+                return;
+            }
         }
 
         IccRecords r = mIccRecords.get();
