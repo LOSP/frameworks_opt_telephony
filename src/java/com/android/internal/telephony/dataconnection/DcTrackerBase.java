@@ -497,7 +497,7 @@ public abstract class DcTrackerBase extends Handler {
         filter.addAction(INTENT_DATA_STALL_ALARM);
 
         mUserDataEnabled = Settings.Global.getInt(
-                mPhone.getContext().getContentResolver(), Settings.Global.MOBILE_DATA, 1) == 1;
+                mPhone.getContext().getContentResolver(), Settings.Global.MOBILE_DATA, 0) == 1;
 
         mPhone.getContext().registerReceiver(mIntentReceiver, filter, null, mPhone);
 
