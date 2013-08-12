@@ -2572,7 +2572,6 @@ public class RIL extends BaseCommands implements CommandsInterface {
     operatorCheck(Parcel p) {
         String response[] = (String[])responseStrings(p);
         for(int i=0; i<response.length; i++){
-            Log.d("Operator:",response[i]);
             if (response[i]!= null){
                     if (response[i].equals("23410")||response[i].equals("26207"))
                         response[i]="O2";
@@ -2616,11 +2615,12 @@ public class RIL extends BaseCommands implements CommandsInterface {
                         response[i]="VIPnet";
                     else if (response[i].trim().equals("ctnet"))
                         response[i]="中国电信";
+                    else if (response[i].trim().equals("46003"))
+                        response[i]="中国电信";
                     else if (response[i].trim().equals("China Mobile"))
                         response[i]="中国移动";
                     else if (response[i].trim().equals("China Unicom"))
                         response[i]="中国联通";
-                    Log.d("Operator:",response[i]);
             }
         }
         return response;
