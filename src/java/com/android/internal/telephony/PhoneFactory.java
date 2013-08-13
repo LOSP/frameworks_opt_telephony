@@ -117,7 +117,7 @@ public class PhoneFactory {
                 // We usr RUIM/SIM as default to support OMH
                 int cdmaSubscription;
                 cdmaSubscription = CdmaSubscriptionSourceManager.SUBSCRIPTION_FROM_RUIM;
-                Log.i(LOG_TAG, "Cdma Subscription set to " + cdmaSubscription);
+                Rlog.i(LOG_TAG, "Cdma Subscription set to " + cdmaSubscription);
 
                 //reads the system properties and makes commandsinterface
                 String sRILClassname = SystemProperties.get("ro.telephony.ril_class", "RIL");
