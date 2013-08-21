@@ -2599,7 +2599,7 @@ public class RIL extends BaseCommands implements CommandsInterface {
                         response[i]="3";
                     else if (response[i].equals("26203"))
                         response[i]="E-Plus";
-                    else if (response[i].equals("24412")||response[i].equals("24403"))
+                    else if (response[i].equals("24412") || response[i].equals("24403"))
                         response[i]="DNA";
                     else if (response[i].equals("24414"))
                         response[i]="AMT";
@@ -2613,14 +2613,17 @@ public class RIL extends BaseCommands implements CommandsInterface {
                         response[i]="Optimus";
                     else if (response[i].equals("21910"))
                         response[i]="VIPnet";
-                    else if (response[i].trim().equals("ctnet"))
+                    else if (response[i].trim().equals("ctnet") || response[i].trim().equals("46003")) {
+                        setPreferredNetworkType(4, null);
                         response[i]="中国电信";
-                    else if (response[i].trim().equals("46003"))
-                        response[i]="中国电信";
-                    else if (response[i].trim().equals("China Mobile"))
+                    } else if (response[i].trim().equals("China Mobile") || response[i].trim().equals("46000") || response[i].trim().equals("46002") || response[i].trim().equals("46007")) {
+                        setPreferredNetworkType(3, null);
                         response[i]="中国移动";
-                    else if (response[i].trim().equals("China Unicom"))
+                    } else if (response[i].trim().equals("China Unicom") || response[i].trim().equals("46001") || response[i].trim().equals("46006") || response[i].trim().equals("46020")) {
+                        setPreferredNetworkType(0, null);
                         response[i]="中国联通";
+                    }
+
             }
         }
         return response;
