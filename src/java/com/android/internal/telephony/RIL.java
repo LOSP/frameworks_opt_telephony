@@ -2017,7 +2017,7 @@ public class RIL extends BaseCommands implements CommandsInterface {
         if (RILJ_LOGD) riljLog("setCurrentPreferredNetworkType: " + mSetPreferredNetworkType);
         setPreferredNetworkType(mSetPreferredNetworkType, null);
     }
-    protected int mSetPreferredNetworkType;
+    protected static int mSetPreferredNetworkType;
 
     /**
      * {@inheritDoc}
@@ -2577,7 +2577,7 @@ public class RIL extends BaseCommands implements CommandsInterface {
 
                     if (response[i].equals("23410")||response[i].equals("26207"))
                         response[i]="O2";
-                    else if (response[i].equals("310260") || response[i].equals("23430")|| response[i].equals("23203")||response[i].equals("26201"))
+                    else if (response[i].equals("310260") || response[i].equals("23430") || response[i].equals("23203") || response[i].equals("26201"))
                         response[i]="T-Mobile";
                     else if (response[i].equals("23201"))
                         response[i]="A1";
