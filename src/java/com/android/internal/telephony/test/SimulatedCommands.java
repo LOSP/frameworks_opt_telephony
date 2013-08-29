@@ -1658,6 +1658,7 @@ public final class SimulatedCommands extends BaseCommands
         unimplemented(response);
     }
 
+/*
     @Override
     public void getImsRegistrationState(Message response) {
         unimplemented(response);
@@ -1685,6 +1686,7 @@ public final class SimulatedCommands extends BaseCommands
     public void setDataSubscription (Message response) {
         unimplemented(response);
     }
+*/
 
     @Override
     public void getDataCallProfile(int appType, Message response){

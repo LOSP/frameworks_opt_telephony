@@ -73,7 +73,7 @@ import java.util.HashMap;
  * {@hide}
  */
 public class DcTracker extends DcTrackerBase {
-    protected final String LOG_TAG = "DCT";
+    protected String LOG_TAG = "DCT";
 
     /**
      * Handles changes to the APN db.
@@ -777,7 +777,7 @@ public class DcTracker extends DcTrackerBase {
                 Settings.System.MMS_AUTO_RETRIEVAL_ON_ROAMING, 0) == 1;
 
         // Allow automatic Mms connections if user has enabled it
-        if (mmsAutoRetrieval && apnContext.getApnType().equals(PhoneConstants.APN_TYPE_MMS)) {
+        if (mmsAutoRetrieval && apnContext.getDataProfileType().equals(PhoneConstants.APN_TYPE_MMS)) {
             // don't allow MMS connections while roaming if disabled
             TelephonyManager tm = (TelephonyManager)
                     mPhone.getContext().getSystemService(Context.TELEPHONY_SERVICE);
@@ -2208,7 +2208,7 @@ public class DcTracker extends DcTrackerBase {
 
         switch (msg.what) {
             case DctConstants.EVENT_RECORDS_LOADED:
-                onRecordsLoaded(Phone.REASON_SIM_LOADED);
+                onRecordsLoaded();
                 break;
 
             case DctConstants.EVENT_DATA_CONNECTION_DETACHED:
@@ -2290,7 +2290,7 @@ public class DcTracker extends DcTrackerBase {
                 break;
 
             case DctConstants.EVENT_CDMA_SUBSCRIPTION_SOURCE_CHANGED:
-                onRecordsLoaded(Phone.REASON_NV_READY);
+                onRecordsLoaded();
                 break;
             case DctConstants.EVENT_MODEM_DATA_PROFILE_READY:
                 onModemDataProfileReady();

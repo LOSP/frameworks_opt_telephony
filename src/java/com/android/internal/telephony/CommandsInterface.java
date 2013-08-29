@@ -1561,6 +1561,12 @@ public interface CommandsInterface {
     public int getLteOnCdmaMode();
 
     /**
+     * Return if the current radio is LTE on GSM
+     * @hide
+     */
+    public int getLteOnGsmMode();
+
+    /**
      * Get the data call profile information from the modem
      *
      * @param appType
