@@ -173,7 +173,6 @@ public class DcTracker extends DcTrackerBase {
         initApnContextsAndDataConnection();
 
 
-        log("SUPPORT_MPDN = " + SUPPORT_MPDN);
         log("OMH_ENABLED = " + OMH_ENABLED);
         for (ApnContext apnContext : mApnContexts.values()) {
             // Register the reconnect and restart actions.
@@ -2361,9 +2360,6 @@ public class DcTracker extends DcTrackerBase {
                 }
                 break;
 
-            case DctConstants.EVENT_CDMA_SUBSCRIPTION_SOURCE_CHANGED:
-                onRecordsLoaded();
-                break;
             case DctConstants.EVENT_MODEM_DATA_PROFILE_READY:
                 onModemDataProfileReady();
                 break;
@@ -2425,7 +2421,7 @@ public class DcTracker extends DcTrackerBase {
                 newIccRecords = mUiccController.getIccRecords(UiccController.APP_FAM_3GPP2);
             }
         } else {
-            newIccRecords = getUiccCardApplication();
+            newIccRecords = mUiccController.getIccRecords(UiccController.APP_FAM_3GPP);
             if (newIccRecords == null) {
                 return;
             }
