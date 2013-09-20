@@ -219,8 +219,8 @@ public class ApnContext {
     public boolean isProvisioningApn() {
         String provisioningApn = mContext.getResources()
                 .getString(R.string.mobile_provisioning_apn);
-        if (mApnSetting != null) {
-            return (mApnSetting.apn.equals(provisioningApn));
+        if (mDataProfile != null) {
+            return (mDataProfile.apn.equals(provisioningApn));
         } else {
             return false;
         }
