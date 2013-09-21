@@ -2262,12 +2262,7 @@ public class DcTracker extends DcTrackerBase {
                         log("buildWaitingApns: couldn't handle requesedApnType="
                                 + requestedApnType);
                     }
-                } else {
-                if (DBG) {
-                    log("buildWaitingApns: couldn't handle requesedApnType="
-                            + requestedApnType);
                 }
-            }
             }
         } else {
             loge("mAllDps is empty!");
