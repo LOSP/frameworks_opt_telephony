@@ -51,6 +51,8 @@ import android.telephony.SmsMessage;
 import android.text.TextUtils;
 import android.util.SparseArray;
 
+import com.android.internal.R;
+
 import com.android.internal.telephony.gsm.SmsBroadcastConfigInfo;
 import com.android.internal.telephony.gsm.SuppServiceNotification;
 import com.android.internal.telephony.uicc.IccCardApplicationStatus;
@@ -70,10 +72,12 @@ import java.io.FileDescriptor;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
+import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -2343,7 +2347,7 @@ public final class RIL extends BaseCommands implements CommandsInterface {
             case RIL_REQUEST_SIGNAL_STRENGTH: ret =  responseSignalStrength(p); break;
             case RIL_REQUEST_VOICE_REGISTRATION_STATE: ret =  responseStrings(p); break;
             case RIL_REQUEST_DATA_REGISTRATION_STATE: ret =  responseStrings(p); break;
-            case RIL_REQUEST_OPERATOR: ret =  responseStrings(p); break;
+            case RIL_REQUEST_OPERATOR: ret =  operatorCheck(p); break;
             case RIL_REQUEST_RADIO_POWER: ret =  responseVoid(p); break;
             case RIL_REQUEST_DTMF: ret =  responseVoid(p); break;
             case RIL_REQUEST_SEND_SMS: ret =  responseSMS(p); break;
@@ -2498,6 +2502,26 @@ public final class RIL extends BaseCommands implements CommandsInterface {
             }
         }
         return rr;
+    }
+
+    // Translate operator names
+    private Object
+    operatorCheck(Parcel p) {
+        String response[] = (String[])responseStrings(p);
+        List<String> ids = Arrays.asList(mContext.getResources()
+                                    .getStringArray(R.array.operator_translate_ids));
+        String names[] = mContext.getResources()
+                                    .getStringArray(R.array.operator_translate_names);
+        for (int i = 0; i < response.length; i++) {
+            if (response[i] != null) {
+                int index = ids.indexOf(response[i].trim().toLowerCase());
+                if (index != -1) {
+                    response[i] = names[index];
+                }
+            }
+        }
+        
+        return response;
     }
 
     static String
